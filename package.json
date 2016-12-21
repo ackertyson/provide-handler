@@ -2,6 +2,10 @@
   "name": "provide-handler",
   "version": "0.0.1",
   "description": "Convenience wrapper for ExpressJS handlers",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ackertyson/provide-handler.git"
+  },
   "main": "dist/index.min.js",
   "files": [
     "dist/"

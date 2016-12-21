@@ -25,3 +25,18 @@ class TicketHandler
 
 module.exports = Handler.provide TicketHandler
 ```
+
+Call handler like:
+```
+express = require 'express'
+handler = require '../handlers/ticket' # the example file above
+app = express()
+
+customer = express.Router()
+customer.get '/:customer_id/tickets', handler.for_customer
+app.use '/customer', customer
+
+ticket = express.Router()
+ticket.get '/', handler.get
+app.use '/ticket', ticket
+```

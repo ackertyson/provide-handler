@@ -1,3 +1,5 @@
+Promise = require 'promise'
+
 class ProvideHandler
   # centralize all Express handler response logic by wrapping handler methods in
   #  helper function; note that these are static (not instance) methods...
@@ -19,14 +21,16 @@ class ProvideHandler
     obj
 
   @_wrapper: (callback) ->
-    # pass REQ to CALLBACK (which is the handler method) but handle all response
-    #  logic here so the handlers don't have to worry about it
     (req, res, next) ->
-      callback(req).then (data) ->
+      try # run CALLBACK with actual Express params, catching any exceptions thrown
+        proceed = callback req, res, next
+      catch ex
+        return res.status(500).json ex
+      # wrap result in promise (in case it isn't already one) and process response
+      Promise.resolve(proceed).then (data) ->
         res.status(200).json data
-      .catch (err) ->
-        code = err.code or 500
-        res.status(code).json err
+      , (err) ->
+        res.status(500).json err
 
 
 module.exports = ProvideHandler

@@ -1,5 +1,3 @@
-Promise = require 'promise'
-
 class ProvideHandler
   # centralize all Express handler response logic by wrapping handler methods in
   #  helper function; note that these are static (not instance) methods...
@@ -14,7 +12,7 @@ class ProvideHandler
 
   @_wrap: (obj) ->
     for name, prop of obj
-      obj[name] = @_wrapper prop if @_typeof prop, 'function'
+      obj[name] = @_wrapper prop if @_typeof(prop, 'function') or @_typeof(prop, 'generatorfunction')
       if @_typeof prop, 'object'
         obj[name] = prop
         @_wrap prop
@@ -31,6 +29,6 @@ class ProvideHandler
         res.status(200).json data
       , (err) ->
         res.status(500).json err
-
+      .catch () -> {} # prevent Node 'unhandledRejection' warnings
 
 module.exports = ProvideHandler

@@ -1,4 +1,3 @@
-Promise = require 'promise'
 Handler = require '../src/index'
 
 describe 'provide-handler', ->

@@ -2,6 +2,7 @@
   "name": "provide-handler",
   "version": "0.0.3",
   "description": "Convenience wrapper for ExpressJS handlers",
+  "homepage": "http://providejs.com/",
   "repository": {
     "type": "git",
     "url": "git@github.com:ackertyson/provide-handler.git"
@@ -25,7 +26,5 @@
     "mocha": "^3.2.0",
     "sinon": "^1.17.6"
   },
-  "dependencies": {
-    "promise": "^7.1.1"
-  }
+  "dependencies": {}
 }

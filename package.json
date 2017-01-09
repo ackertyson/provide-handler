@@ -1,6 +1,6 @@
 {
   "name": "provide-handler",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Convenience wrapper for ExpressJS handlers",
   "homepage": "http://providejs.com/",
   "repository": {

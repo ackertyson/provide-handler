@@ -23,13 +23,13 @@ class ProvideHandler
       try # run CALLBACK with actual Express params, catching any exceptions thrown
         proceed = callback req, res, next
       catch ex
-        console.error '[provide-handler]', ex
+        console.error '[provide-handler]', ex unless process.env.NODE_ENV is 'test'
         return res.status(500).json []
       # wrap result in promise (in case it isn't already one) and process response
       Promise.resolve(proceed).then (data) ->
         res.status(200).json data
       , (err) ->
-        console.error '[provide-handler]', err
+        console.error '[provide-handler]', err unless process.env.NODE_ENV is 'test'
         res.status(500).json []
       .catch () -> {} # prevent Node 'unhandledRejection' warnings
 

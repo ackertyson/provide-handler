@@ -12,7 +12,7 @@
     "dist/"
   ],
   "scripts": {
-    "test": "grunt test"
+    "test": "NODE_ENV=test grunt test"
   },
   "author": "tyson@devmode.com",
   "license": "ISC",

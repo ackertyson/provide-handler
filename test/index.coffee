@@ -24,8 +24,7 @@ describe 'provide-handler', ->
       mock_res =
         status: (code) -> json: (data) ->
           code.should.equal 500
-          data.should.be.instanceof Error
-          data.should.have.property 'message', 'bye'
+          data.should.have.length 0
       wrapper = Handler._wrapper (req) ->
         throw new Error 'bye'
       wrapper fake: 'hi', mock_res
@@ -63,8 +62,7 @@ describe 'provide-handler', ->
       mock_res =
         status: (code) -> json: (data) ->
           code.should.equal 500
-          data.should.be.instanceof Error
-          data.should.have.property 'message', 'bye'
+          data.should.have.length 0
       wrapper = Handler._wrapper (req) ->
         throw new Error 'bye'
       wrapper fake: 'hi', mock_res

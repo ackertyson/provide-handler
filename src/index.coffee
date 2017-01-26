@@ -23,12 +23,14 @@ class ProvideHandler
       try # run CALLBACK with actual Express params, catching any exceptions thrown
         proceed = callback req, res, next
       catch ex
-        return res.status(500).json ex
+        console.error '[provide-handler]', ex
+        return res.status(500).json []
       # wrap result in promise (in case it isn't already one) and process response
       Promise.resolve(proceed).then (data) ->
         res.status(200).json data
       , (err) ->
-        res.status(500).json err
+        console.error '[provide-handler]', err
+        res.status(500).json []
       .catch () -> {} # prevent Node 'unhandledRejection' warnings
 
 module.exports = ProvideHandler

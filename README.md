@@ -1,12 +1,12 @@
-#provide-handler
+# provide-handler
 
 Convenience wrapper for Express handlers.
 
-##Installation
+## Installation
 
 `npm i --save provide-handler`
 
-##Usage
+## Usage
 
 Handler methods are responsible only for processing whatever inputs they need
 (e.g., req.params, req.body, etc.) and returning a value. That return value will
@@ -59,6 +59,6 @@ ticket.get '/', handler.get
 app.use '/ticket', ticket
 ```
 
-##Testing
+## Testing
 
 `npm test`

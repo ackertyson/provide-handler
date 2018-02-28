@@ -2,7 +2,7 @@ class ProvideHandler
   constructor: (@models={}) ->
     for name, model of @models
       if @[name]?
-        console.error "Model #{name} collides with existing method and will only be available as '@models.#{name}'"
+        console.error "Model '#{name}' collides with existing handler method and will only be available as '@models.#{name}'"
       else
         @[name] = model
     @_proxy()

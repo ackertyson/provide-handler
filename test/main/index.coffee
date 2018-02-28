@@ -5,7 +5,19 @@ mock_next = (expected) ->
     expect(err).to.be.null unless expected?
     err.should.have.property 'message', expected
 
+
 describe 'provide-handler', ->
+  describe 'constructor', ->
+    it 'should warn on model/method name collision', ->
+      models =
+        common:
+          get: ->
+          update: ->
+      class FakeHandler extends Handler
+        common: (req, res, next) ->
+          res.sendStatus 200
+      fake = new FakeHandler models
+
   describe '_promisify',  ->
     it 'should handle promise-based model method', ->
       mock_res =

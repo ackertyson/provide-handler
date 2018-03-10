@@ -25,7 +25,7 @@ Example handler (called by Express route):
 Handler = require 'provide-handler'
 
 class TicketHandler extends Handler
-  promises: # methods which should be wrapped in Promise
+  proxy: # methods which should be wrapped in Promise
     # here we're dereferencing QUERY from req because it's all we need...
     get: ({ query }) ->
       @Ticket.all query

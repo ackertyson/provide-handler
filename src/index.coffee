@@ -4,12 +4,8 @@ class ProvideHandler
       if @[name]?
         console.error "Model '#{name}' collides with existing handler method and will only be available as '@models.#{name}'"
       else
-        @[name] = model
+        @constructor.prototype[name] = model
     @_proxy()
-
-  _typeof: (subject, type) ->
-    # typeof that actually works!
-    Object::toString.call(subject).toLowerCase().slice(8, -1) is type
 
   _promisify: (callback) ->
     (req, res, next) =>
@@ -27,13 +23,16 @@ class ProvideHandler
       .catch () -> {} # prevent Node 'unhandledRejection' warnings
 
   _proxy:  ->
-    @constructor::promises ?= {}
-    for name, prop of @constructor::promises
-      @constructor.prototype[name] = @_promisify prop
+    @constructor::proxy ?= {}
+    for name, prop of @constructor::proxy
+      if @_typeof prop, 'generatorfunction'
+        @constructor.prototype[name] = @_promisify @_yields(prop).bind @constructor.prototype
+      else
+        @constructor.prototype[name] = @_promisify prop
 
-    @constructor::generators ?= {}
-    for name, prop of @constructor::generators
-      @constructor.prototype[name] = @_yields prop
+  _typeof: (subject, type) ->
+    # typeof that actually works!
+    Object::toString.call(subject).toLowerCase().slice(8, -1) is type
 
   _yields: (callback) ->
     (args...) ->
